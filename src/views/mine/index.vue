@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div>
+    <h2>我的</h2>
   </div>
 </template>
 
-
 <script>
   export default {
+    name:'my'
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>
