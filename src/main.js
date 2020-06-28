@@ -10,7 +10,11 @@ import './assets/style/index.scss'
 Vue.config.productionTip = false
 // Vant组件库
 Vue.use(Vant);
+// rem适配
+import 'amfe-flexible'
 
+// mock数据
+import '@/mock'
 new Vue({
   router,
   store,
