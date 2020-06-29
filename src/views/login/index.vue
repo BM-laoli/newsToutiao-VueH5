@@ -1,8 +1,13 @@
 <template>
   <div class="login-container">
-  <van-nav-bar title="登录"  class="page-nav-bar"/>
+  <van-nav-bar title="登录"  class="page-nav-bar"> 
+     <template #left>
+       <!-- 行为很的简单后退一下就好好了,从哪儿来回哪儿去 -->
+      <van-icon name="cross" @click="$router.back()" />
+    </template>
+  </van-nav-bar>
   <!-- 表单 -->
-    <van-form  @submit="onSubmit" ref="loginRef" >
+    <van-form  @submit="onSubmit" ref="loginRef">
       <van-field
         v-model="user.mobile"
         name="mobile"
@@ -95,6 +100,8 @@ import { mapMutations } from 'vuex'
           this.$toast.success('登录成功')
           // 处理
           this.vxmInintUser(res.data)
+          // 回退
+          this.$router.back()
         } catch (error) {
           if (error.response.status === 400) {
             this.$toast.fail('手机号或者用户名错误');

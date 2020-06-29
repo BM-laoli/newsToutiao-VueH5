@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // 封装抽离
-import { getItem,setItm } from '../utils/storage'
+import { getItem,setItm,removeItem } from '../utils/storage'
 Vue.use(Vuex)
 // 类型常量
 const TOKEN_KEY = 'TOUTIAO_USER'
@@ -16,6 +16,10 @@ export default new Vuex.Store({
     initUer( state,payload ){
       state.user = payload
       setItm( TOKEN_KEY,payload )
+    },
+    deletUser( state ) {
+      state.user = null
+      removeItem( TOKEN_KEY )
     }
   },
   actions: {

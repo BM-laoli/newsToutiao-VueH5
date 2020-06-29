@@ -4,8 +4,8 @@ import http from '../plugins/http'
  * 登录接口
  * @param {参数对象} options 
  */
-export const login = options  => {
-  return http.post('/app/v1_0/authorizations',options)
+export const login = async options  => {
+  return await http.post('/app/v1_0/authorizations',options)
 }
 
 
@@ -13,24 +13,15 @@ export const login = options  => {
  * 发送验证码
  * @param {参数对象} options 
  */
- export const sendSms = options=> {
-  return http.get(`/app/v1_0/sms/codes/${options}`)
+ export const sendSms = async options=> {
+  return await http.get(`/app/v1_0/sms/codes/${options}`)
 };
 
-/**
- * 获取用户信息
+/** 获取用户信息
+ * @param  { 获取用户信息 } '/app/v1_0/user'
  */
-export const getUserInfo = () => {
-  return request({
-    method: 'GET',
-    url: '/app/v1_0/user'
-    // 发送请求头数据
-    // headers: {
-    //   // 注意：该接口需要授权才能访问
-    //   //       token的数据格式：Bearer token数据，注意 Bearer 后面有个空格
-    //   Authorization: `Bearer ${store.state.user.token}`
-    // }
-  });
+export const getUserInfo = async () => {
+  return await http.get( '/app/v1_0/user' )
 };
 
 /**
