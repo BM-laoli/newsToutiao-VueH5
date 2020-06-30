@@ -20,7 +20,7 @@ export default new Vuex.Store({
     deletUser( state ) {
       state.user = null
       removeItem( TOKEN_KEY )
-    }
+    } 
   },
   actions: {
   },

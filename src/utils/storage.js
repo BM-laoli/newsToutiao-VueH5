@@ -16,12 +16,13 @@ export const setItm = ( key,value ) => {
  * @param  { key } 
  */
 export const getItem = (key) => {
+  
   const data = window.localStorage.getItem(key)
   try {
     // 如果不是json字符串就会报错，我们就能捕获错误
-    return JSON.parse(data)
+    return  JSON.parse(data)
   } catch (error) {
-  return data
+    return data
   }
 }
 

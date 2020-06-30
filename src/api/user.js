@@ -25,13 +25,10 @@ export const getUserInfo = async () => {
 };
 
 /**
- * 获取用户频道列表
+ * @param  { 获取频道 } =>{returnawaithttp.get('/app/v1_0/user/channels'
  */
-export const getUserChannels = () => {
-  return request({
-    method: 'GET',
-    url: '/app/v1_0/user/channels'
-  });
+export const getUserChannels =  async () => {
+  return await http.get('/app/v1_0/user/channels')
 };
 
 /**

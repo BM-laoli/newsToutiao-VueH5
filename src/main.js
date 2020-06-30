@@ -13,6 +13,9 @@ Vue.use(Vant);
 // rem适配
 import 'amfe-flexible'
 
+// 加载DyaJS
+import './utils/dayjs'
+
 // mock数据
 import '@/mock'
 new Vue({
