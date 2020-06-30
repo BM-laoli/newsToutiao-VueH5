@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <!-- 导航栏部分 -->
     <van-nav-bar  class="page-nav-bar" fixed  >
       <van-button 
       class="search-butn"
@@ -10,6 +11,7 @@
         icon="search"
       >搜索</van-button>
     </van-nav-bar>
+    <!-- /导航栏部分 -->
 
     <!-- 频道列表 -->
     <van-tabs class="channel-tabs" v-model="active" swipeable>
@@ -22,40 +24,82 @@
       <div slot="nav-right" class="plachhoede">
           
       </div>
-      <div slot="nav-right" class="humberg-btn">
+      <div slot="nav-right" class="humberg-btn" @click="show = true">
         <i class=" toutiao toutiao-gengduo"></i>
       </div>
     </van-tabs>
     <!-- /频道列表 -->
 
+    <!-- 频道弹出层 -->
+    <div>
+      <van-popup
+        v-model="show"
+        closeable
+        position="bottom" 
+        close-icon-position="top-left"
+        :style="{ height: '100%' }"
+      >
+      <channel-edit 
+        v-model="show"
+        :active.sync="active" 
+        :channels="channels"
+        > </channel-edit>
+      </van-popup>
+    </div>
+    <!-- /频道弹出层 -->
 
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '../../api/user'
-import ArticleList from '../../components/home/article-list'
+import ArticleList from '../../components/article/article-list'
+import ChannelEdit from '../../components/channel/channel-edit'
+import  {mapState} from 'vuex'
+import { getItem} from '../../utils/storage'
   export default {
     name:"home",
-  components: {
-    ArticleList,
+    components: {
+      ArticleList,
+      ChannelEdit
   },
     data() {
       return {
          active: 0,
-         channels:[]
+         channels:[],
+         show:false
       }
+    },
+    computed: {
+      ...mapState({vxsUser:'user'})
     },
     methods: {
       async loadUserChannels() {
-
-        let { data:res } = await getUserChannels() 
-        this.channels = res.data.channels
+        // // 获取用户的列表
+        // let { data:res } = await getUserChannels() 
+        // this.channels = res.data.channels
+        // ============> 分割线
+        let thatChannle = []
+        if( !this.vxsUser ){
+          const localchannel = getItem('TTOUTIAO_CHANNELS')
+          if(!localchannel){
+            let { data:res } =  await  getUserChannels()
+            thatChannle = res.data.channels
+            return 
+          }
+          thatChannle = localchannel
+        } else {
+          let { data:res } =  await  getUserChannels()
+          thatChannle = res.data.channels
+        }
+        // 编码风格
+        this.channels = thatChannle
+        
       }
     },
     created () {
       this.loadUserChannels()
-    },
+    }
   }
 </script>
 

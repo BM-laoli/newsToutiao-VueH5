@@ -30,7 +30,7 @@
 
 <script>
 import { getArticles } from '../../api/article'
-import ArticleItem from '../../components/card/article-item'
+import ArticleItem from '../../components/article/article-item'
 export default {
     name:'ArticleList',
     components: {

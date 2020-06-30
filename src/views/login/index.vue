@@ -113,11 +113,17 @@ import { mapMutations } from 'vuex'
       async onSendCode() {
         // 倒计时，禁用 ，发请求
         // 先验证手机号,手机号验证通过采取发请求
+        // 简化trycath语法，直接抓取就好了
+          // let err =  await this.$refs.loginRef.validate('mobile').catch( err => err )
+          // if( !err ) { return  }
+          // // 后续正常代码
         try {
           await this.$refs.loginRef.validate('mobile')
         } catch (err) {
           return this.$toast.fail( '手机验证失败' )
-        }   
+        }
+        
+        
       // 倒计时
         this.isShowCountDowm = true
       // 发请求就好了
