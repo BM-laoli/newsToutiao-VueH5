@@ -9,45 +9,51 @@
         size="small"
         round
         icon="search"
+        to="/search"
       >搜索</van-button>
     </van-nav-bar>
     <!-- /导航栏部分 -->
 
     <!-- 频道列表 -->
-    <van-tabs class="channel-tabs" v-model="active" swipeable>
-      <van-tab   v-for="(item) in channels" :key="item.id" 
-        :title="item.name" > 
-        
-        <article-list :channel="item"></article-list>
-        </van-tab>  
-      <!-- 这个是一个占位符号，为了解决最后的东西显示不出来，宽度设置成后面的那个盒子大小就好 了 -->
-      <div slot="nav-right" class="plachhoede">
-          
-      </div>
-      <div slot="nav-right" class="humberg-btn" @click="show = true">
-        <i class=" toutiao toutiao-gengduo"></i>
-      </div>
-    </van-tabs>
+    <keep-alive>
+      <van-tabs 
+          class="channel-tabs" 
+          v-model="homeData.active" 
+          swipeable>
+          <van-tab   
+            v-for="(item) in homeData.channels" 
+            :key="item.id" 
+            :title="item.name" > 
+            <article-list :channel="item"></article-list>
+          </van-tab>  
+          <!-- 这个是一个占位符号，为了解决最后的东西显示不出来，宽度设置成后面的那个盒子大小就好 了 -->
+          <div slot="nav-right" class="plachhoede">
+          </div>
+          <div slot="nav-right" class="humberg-btn" @click="homeData.show = true">
+            <i class=" toutiao toutiao-gengduo"></i>
+          </div>  
+      </van-tabs>
+    </keep-alive>
+  
     <!-- /频道列表 -->
 
     <!-- 频道弹出层 -->
     <div>
       <van-popup
-        v-model="show"
+        v-model="homeData.show"
         closeable
         position="bottom" 
         close-icon-position="top-left"
         :style="{ height: '100%' }"
       >
       <channel-edit 
-        v-model="show"
-        :active.sync="active" 
-        :channels="channels"
+        v-model="homeData.show"
+        :active.sync="homeData.active" 
+        :channels="homeData.channels"
         > </channel-edit>
       </van-popup>
     </div>
     <!-- /频道弹出层 -->
-
   </div>
 </template>
 
@@ -58,16 +64,18 @@ import ChannelEdit from '../../components/channel/channel-edit'
 import  {mapState} from 'vuex'
 import { getItem} from '../../utils/storage'
   export default {
-    name:"home",
+    name:"HomeIndex",
     components: {
       ArticleList,
       ChannelEdit
   },
     data() {
       return {
-         active: 0,
-         channels:[],
-         show:false
+         homeData:{
+            active: 0,
+            channels:[],
+            show:false
+         }
       }
     },
     computed: {
@@ -78,14 +86,15 @@ import { getItem} from '../../utils/storage'
         // // 获取用户的列表
         // let { data:res } = await getUserChannels() 
         // this.channels = res.data.channels
-        // ============> 分割线
-        let thatChannle = []
+        // ============> 分割线，下面的部分是在处理 用户是否登录的本地缓存数据处理
+        let thatChannle = []  //收集器，这个也是一种编写代码的方式和技巧
+        
         if( !this.vxsUser ){
           const localchannel = getItem('TTOUTIAO_CHANNELS')
           if(!localchannel){
             let { data:res } =  await  getUserChannels()
             thatChannle = res.data.channels
-            return 
+            return  
           }
           thatChannle = localchannel
         } else {
@@ -93,8 +102,7 @@ import { getItem} from '../../utils/storage'
           thatChannle = res.data.channels
         }
         // 编码风格
-        this.channels = thatChannle
-        
+        this.homeData.channels = thatChannle  
       }
     },
     created () {

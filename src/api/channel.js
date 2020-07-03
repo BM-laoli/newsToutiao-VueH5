@@ -1,6 +1,4 @@
-/**
- * 频道请求模块
- */
+
 import http from '../plugins/http';
 
 
@@ -10,10 +8,7 @@ import http from '../plugins/http';
  * @param  {'/app/v1_0/channels'}} url
  */
 export const getAllChannels = () => {
-  return http({
-    method: 'GET',
-    url: '/app/v1_0/channels'
-  });
+  return http.get( '/app/v1_0/channels' )
 };
 
 
@@ -24,13 +19,7 @@ export const getAllChannels = () => {
  * @param  {{channels:[channel]}}} 必须的数组，全部都是一个数组
  */
 export const addUserChannel = channel => {
-  return http({
-    method: 'PATCH',
-    url: '/app/v1_0/user/channels',
-    data: {
-      channels: [channel]
-    }
-  });
+  return  http.patch('/app/v1_0/user/channels',{ channels:[channel] })
 };
 
 
@@ -40,8 +29,5 @@ export const addUserChannel = channel => {
  * @param  {`/app/v1_0/user/channels/${channelId}`}} url
  */
 export const deleteUserChannel = channelId => {
-  return http({
-    method: 'DELETE',
-    url: `/app/v1_0/user/channels/${channelId}`
-  });
+  return http.delete(`/app/v1_0/user/channels/${channelId}` )
 };

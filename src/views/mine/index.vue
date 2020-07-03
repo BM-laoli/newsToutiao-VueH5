@@ -82,9 +82,6 @@
 
       </div>
     </div>
-    
-    
-
   </div>
 
 </template>
@@ -93,7 +90,7 @@
 import { mapState,mapMutations } from 'vuex'
 import {getUserInfo,} from '../../api/user';
   export default {
-  name:'my',
+  name:'Mime',
   computed: {
     ...mapState( { vxsUser:'user' } )
   },
@@ -120,6 +117,7 @@ import {getUserInfo,} from '../../api/user';
           // on cancel
         });
     },
+    
     // 获取数据的接口
     async loadUser() {
       if( !this.vxsUser ){
@@ -138,6 +136,7 @@ import {getUserInfo,} from '../../api/user';
 </script>
 
 <style lang="scss" scoped>
+
 .my-container {
   .header {
     height: 361px;

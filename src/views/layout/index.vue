@@ -1,11 +1,18 @@
 <template>
   <div class="layout-container">
-    <router-view></router-view>
+    
+    <keep-alive  include='HomeIndex'>
+      <router-view></router-view>
+    </keep-alive>
+
       <van-tabbar v-model="active" route>
+        
+
         <van-tabbar-item to="/">
             <i slot="icon" class="toutiao toutiao-shouye"></i>
             <span class="text">首页</span>
         </van-tabbar-item>
+
         <van-tabbar-item  to="/qa">
           <i slot="icon" class="toutiao toutiao-wenda"></i>
             <span class="text">问答</span>

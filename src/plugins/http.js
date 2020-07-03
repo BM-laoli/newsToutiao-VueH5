@@ -8,7 +8,7 @@ const http = axios.create( {
 // 请求拦截器
 http.interceptors.request.use( 
 (config)=>{
-  // 如果有user 如果有 token注意啊，这个要小心使用
+      // 如果有user 如果有 token注意啊，这个要小心使用
       if ( store.state.user && store.state.user.token) {
         config.headers.Authorization = `Bearer ${store.state.user.token}`;
       }  
@@ -22,6 +22,3 @@ http.interceptors.request.use(
 
 
 export default http
-
-// 请求拦截器
-// 响应拦截器

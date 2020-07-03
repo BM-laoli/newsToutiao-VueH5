@@ -1,7 +1,7 @@
 <template>
   <div class="article-list">
 
-    <van-pull-refresh 
+    <van-pull-refresh   
       v-model="isRefreshing" 
       @refresh="onRefresh" 
       :success-duration = "1500"
@@ -44,13 +44,13 @@ export default {
     },
     data() {
       return {
-      successText:'',
-      isRefreshing:true,  // 控制下拉刷新按钮
-      error:false,
-      list: [],
-      loading: false,
-      finished: false,
-      timestamp:null,  // 时间戳用于分页
+        successText:'',
+        isRefreshing:true,  // 控制下拉刷新按钮
+        error:false,
+        list: [],
+        loading: false,
+        finished: false,
+        timestamp:null,  // 时间戳用于分页
       }
     },
     methods: {

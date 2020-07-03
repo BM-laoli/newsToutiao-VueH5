@@ -8,6 +8,7 @@ const home = () => import ( '../views/home/index')
 const qa = () => import ( '../views/qa/index')
 const video = () => import ( '../views/video/index')
 const mine = () => import ( '../views/mine/index')
+const search = () => import ( '../views//search/index')
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,8 @@ Vue.use(VueRouter)
       path:'/login',
       name:'login',
       component:login
-    },{
+    },
+    {
       path:'/',
       name:'layout',
       component:layout,
@@ -42,7 +44,12 @@ Vue.use(VueRouter)
           component:mine
         }
       ]
-    }
+    },
+    { 
+      path:'/search',
+      name:'search',
+      component:search
+    },
 ]
 
 const router = new VueRouter({

@@ -3,9 +3,11 @@ import Vuex from 'vuex'
 
 // 封装抽离
 import { getItem,setItm,removeItem } from '../utils/storage'
+
 Vue.use(Vuex)
-// 类型常量
-const TOKEN_KEY = 'TOUTIAO_USER'
+
+// 注入类型常量
+import {TOKEN_KEY} from '../constants/vuex-type'
 
 export default new Vuex.Store({
   state: {
